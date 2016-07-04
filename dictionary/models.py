@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+class Word(models.Model):
+    term = models.CharField(max_length=30)
+    meaning = model.CharField(max_length=100)
