@@ -1,8 +1,15 @@
 from django.db import models
 
+class Language(models.Model):
+    language = models.CharField(max_length=5, primary_key=True)
+    alphabet = models.CharField(max_length=50)
+
+    def __str__(self):
+        return "{0}: {1}".format(language, alphabet)
+
 class Word(models.Model):
-    id_word    = models.IntegerField()
     language   = models.ForeignKey(Language, on_delete=models.CASCADE)
+    id_word    = models.IntegerField()
     term       = models.CharField(max_length=30)
     definition = models.CharField(max_length=50)
     category   = models.CharField(max_length=30)
@@ -10,12 +17,6 @@ class Word(models.Model):
     def __str__(self):
         return "({0} - {1}) {2}: {3}".format(id_word, language, term, definition)
 
-class Language(models.Model):
-    language = models.CharField(max_length=5, primary_key=True)
-    alphabet = models.CharField(max_length=50)
-
-    def __str__(self):
-        return "{0}: {1}".format(language, alphabet)
     
 """
 ####Sample
