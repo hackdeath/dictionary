@@ -1,0 +1,11 @@
+<h1>Word's details</h1>
+
+{% if words %}
+    <ul>
+    {% for word in words %}
+        <li>{{ word.term }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No words.</p>
+{% endif %}
