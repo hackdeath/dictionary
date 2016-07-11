@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
 	url(r'^$', views.index, name='index'),
-	url(r'^(?P<word>[A-Za-z]+)/', views.detailWord, name='detailWord')
+	url(r'^word/(?P<word>[A-Za-z]+)/', views.detailWord, name='detailWord')
 ]

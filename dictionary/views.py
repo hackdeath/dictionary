@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def detailWord(request, word):
-	return HttpResponse("This is the page of word's details")
+    return HttpResponse("This is the page of {0}'s details".format(word))
 
 def index(request):
-	return HttpResponse("index")
+    return HttpResponse("index")
