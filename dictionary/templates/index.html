@@ -1,0 +1,8 @@
+{% if alphabet_list %}
+    <ul>
+    {% for a in alphabet_list %}
+        <li><a href="/dictionary/{{ a.language }}">{{ a.language }}</a></li>
+    {% endfor %}
+{% else %}
+    <p>No alphabets are available.</p>
+{% endif %}
