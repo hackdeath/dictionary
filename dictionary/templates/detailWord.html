@@ -1,11 +1,16 @@
-<h1>Word's details</h1>
+<h1>{{ title }}</h1>
 
 {% if words %}
-    <ul>
-    {% for word in words %}
-        <li>{{ word.term }}</li>
+    {% for group in words %}
+        <div>
+            <p>{{ forloop.counter }}</p>
+            <nav>
+                {% for word in group %}
+                    <a>{{word.language}}: {{word.term}}</a>
+                {% endfor %}
+            </nav>
+        </div>
     {% endfor %}
-    </ul>
 {% else %}
-    <p>No words.</p>
+    <p>No results.</p>
 {% endif %}

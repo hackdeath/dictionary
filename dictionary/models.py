@@ -5,7 +5,7 @@ class Language(models.Model):
     alphabet = models.CharField(max_length=50)
 
     def __str__(self):
-        return "{0}: {1}".format(language, alphabet)
+        return "{0}".format(language)
 
 class Word(models.Model):
     language   = models.ForeignKey(Language, on_delete=models.CASCADE)
