@@ -7,4 +7,4 @@ def detailWord(request, word):
     return HttpResponse("This is the page of {0}'s details".format(word))
 
 def index(request):
-    return HttpResponse("index")
+    return render(request, 'dictionary/index.html')

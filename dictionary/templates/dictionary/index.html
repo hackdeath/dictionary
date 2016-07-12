@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Dicionário - Busca</title>
+</head>
+<body>
+	<form id="" action="" method="post">
+		{% csrf_token %}
+		<input type="text" name="word" placeholder="Digite uma palavra">
+		<input type="submit" value="Buscar">
+	</form>
+
+	<input type="text" id="search-text" placeholder="Digite uma palavra">
+	<button onclick="redirect()">Buscar</button>
+
+	<script type="text/javascript">
+		function redirect() {
+			var current_url = window.location.href;
+			current_url += "word/" + document.getElementById("search-text").value
+			window.location.href = current_url;
+		}
+	</script>
+</body>
+</html>
