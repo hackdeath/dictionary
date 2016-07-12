@@ -2,6 +2,9 @@
     <ul>
     {% for a in alphabet_list %}
         <li><a href="/dictionary/{{ a.language }}">{{ a.language }}</a></li>
+	  	{% for i in a.alphabet|make_list %}
+	  		<a href="/dictionary/{{ i }}">{{ i }}</a>
+	  	{% endfor %}
     {% endfor %}
 {% else %}
     <p>No alphabets are available.</p>
