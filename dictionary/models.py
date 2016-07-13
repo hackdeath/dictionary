@@ -5,7 +5,7 @@ class Language(models.Model):
     alphabet = models.CharField(max_length=50)
 
     def __str__(self):
-        return "{0}".format(language)
+        return "{0}".format(self.language)
 
 class Word(models.Model):
     language   = models.ForeignKey(Language, on_delete=models.CASCADE)
@@ -15,7 +15,7 @@ class Word(models.Model):
     category   = models.CharField(max_length=30)
 
     def __str__(self):
-        return "({0} - {1}) {2}: {3}".format(id_word, language, term, definition)
+        return "({0} - {1}) {2}: {3}".format(self.id_word, self.language, self.term, self.definition)
 
     
 """
