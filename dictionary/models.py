@@ -11,7 +11,7 @@ class Word(models.Model):
     language   = models.ForeignKey(Language, on_delete=models.CASCADE)
     id_word    = models.IntegerField()
     term       = models.CharField(max_length=30)
-    definition = models.CharField(max_length=50)
+    definition = models.CharField(max_length=150)
     category   = models.CharField(max_length=30)
 
     def __str__(self):
