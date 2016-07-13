@@ -15,7 +15,7 @@ def detailWord(request, word):
     for key in ids:
         words += [[word for word in query if word.id_word == key]]
 
-    template = loader.get_template('detailWord.html')
+    template = loader.get_template('dictionary/detailWord.html')
     context = {
         'title': title,
         'words': words,
