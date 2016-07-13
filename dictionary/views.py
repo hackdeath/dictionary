@@ -1,10 +1,27 @@
 from django.shortcuts import render
-
-# Create your views here.
 from django.http import HttpResponse
+from django.template import loader
+from .models import Word, Language
 
 def detailWord(request, word):
-    return HttpResponse("This is the page of {0}'s details".format(word))
+    ids = [obj.id for obj in Word.objects.filter(term=word)]
+    result = Word.objects.filter(id_word__in=ids)
+    words = [] # Agrupa as palavras de acordo com o id_word
+    title = ""
+
+    if (result):
+        title = result[0].term
+
+    for key in ids:
+        words += [[word for word in query if word.id_word == key]]
+
+    template = loader.get_template('detailWord.html')
+    context = {
+        'title': title,
+        'words': words,
+    }
+
+    return HttpResponse(template.render(context, request))
 
 def index(request):
     return render(request, 'dictionary/index.html')
