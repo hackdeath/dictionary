@@ -1,0 +1,16 @@
+<div>
+	<h1><a href="#">{{ request.get_full_path | cut:"/dictionary/letter/" | slice:":-1" }}</a></h1>
+</div>
+
+{% if word_list %}
+    <ul>
+    {% for a in word_list %}
+	    <div>
+	        {% if a.term|slice:":1" ==  request.get_full_path|cut:"/dictionary/letter/"|slice:":-1" %}
+	        	<li><a href="#">{{ a.term }}</a></li>
+	        {% endif %}
+		</div>
+    {% endfor %}
+{% else %}
+    <p>No words are available.</p>
+{% endif %}

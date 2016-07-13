@@ -24,4 +24,14 @@ def detailWord(request, word):
     return HttpResponse(template.render(context, request))
 
 def index(request):
-    return render(request, 'dictionary/index.html')
+    languages = Language.objects.all()
+    context = {'languages' : languages,}
+    return render(request, 'dictionary/index.html', context)
+
+def letter(request, letter):
+    word_list = Word.objects.filter(term__startswith=letter)
+    context = {
+        'word_list': word_list,
+        'letter': letter,
+    }
+    return render(request, 'dictionary/letter.html', context)

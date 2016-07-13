@@ -5,14 +5,16 @@
 	<title>Dicionário - Busca</title>
 </head>
 <body>
-	<form id="" action="" method="post">
-		{% csrf_token %}
-		<input type="text" name="word" placeholder="Digite uma palavra">
-		<input type="submit" value="Buscar">
-	</form>
-
+	<!--Área de pesquisa-->
 	<input type="text" id="search-text" placeholder="Digite uma palavra">
 	<button onclick="redirect()">Buscar</button>
+	
+	<!--Linguagens e alfabetos-->
+	<select>
+		{% for lang in languages.all %}
+			<option>{{lang.language}}</option>
+		{% endfor%}
+	</select>
 
 	<script type="text/javascript">
 		function redirect() {
