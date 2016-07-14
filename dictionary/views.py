@@ -29,10 +29,12 @@ def index(request):
     context = {'languages' : languages,}
     return render(request, 'dictionary/index.html', context)
 
-def letter(request, letter):
-    word_list = Word.objects.filter(term__startswith=letter)
+def letter(request, lang, letter):
+    word_list = Word.objects.filter(language=lang).filter(term__startswith=letter).order_by('term')
+    alphabet_list = Language.objects.filter(language=lang)
     context = {
         'word_list': word_list,
+        'alphabet_list': alphabet_list,
         'letter': letter,
     }
     return render(request, 'dictionary/letter.html', context)
