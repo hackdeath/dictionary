@@ -1,6 +1,10 @@
-<h1>{{ title }}</h1>
+{% extends "dictionary/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
 
 <script>
+{% block javascript %}
     var words = [ {% for group in words %} {% for word in group %} {"term": "{{ word.term }}", "language": "{{ word.language }}", "definition": "{{ word.definition }}"} {% if forloop.last %}];{% else %}, {% endif %} {% endfor %} {% endfor %}
 
 function update(term, language) {
@@ -20,7 +24,11 @@ function update(term, language) {
     info.innerHTML = "<h2>" + word.term + "</h2>\n\n<p>" + word.definition + "</p>";
 }
 
+{% endblock %}
 </script>
+
+{% block content %}
+<h1>{{ title }}</h1>
 
 {% if words %}
     {% for group in words %}
@@ -39,3 +47,4 @@ function update(term, language) {
 {% else %}
     <p>No results.</p>
 {% endif %}
+{% endblock %}

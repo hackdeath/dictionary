@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+    <head>
+        <title>{% block title %}{% endblock %}</title >
+
+        <script>
+            {% block javascript %}
+            {% endblock %}
+        </script>
+    </head>
+    <body>
+        <header>
+            <div>
+                <h1><a href="/dictionary/">Dictecnic</a></h1>
+            </div>
+            <div>
+                <ul>
+                    <li><a href="/dictionary">Index</a></li>
+                    <li><a href="/dictionary/letter/en-us/a/">Alphabet</a></li>
+                </ul>
+            </div>
+        </header>
+
+        {% block content %}
+        {% endblock %}
+
+        <footer>
+            <span>&copy; 2016 - Technical Dictionary</span>
+        </footer>
+    </body>
+</html>
