@@ -12,14 +12,14 @@
 	<!--Linguagens e alfabetos-->
 	<select>
 		{% for lang in languages.all %}
-			<option value="{{ lang.language }}">{{lang.language}}</option>
+			<option>{{lang.language}}</option>
 		{% endfor%}
 	</select>
 
 	<script type="text/javascript">
 		function redirect() {
 			var current_url = window.location.href;
-			current_url += "word/" + document.getElementById("search-text").value + document.getElementById("language-selected")
+			current_url += "word/" + document.getElementById("search-text").value
 			window.location.href = current_url;
 		}
 	</script>
