@@ -1,14 +1,29 @@
 <h1>{{ title }}</h1>
 
+<script>
+var text = '{"words": [ {% for group in words %} {% for word in group %} {"term": "{{ word.term }}", "language": "{{ word.language }}", "definition": "{{ word.definition }}"} {% if forloop.last %}]}';{% else %}, {% endif %} {% endfor %} {% endfor %}
+
+var words = JSON.parse(text);
+
+function definition() {
+    /*************************************************************** /
+    /*  Alterar conteúdo da div que exibe a definição de uma palavra /
+    /****************************************************************/
+}
+</script>
+
 {% if words %}
     {% for group in words %}
         <div>
             <p>{{ forloop.counter }}</p>
             <nav>
                 {% for word in group %}
-                    <a>{{word.language}}: {{word.term}}</a>
+                    <a onclick="definition(/* algo que indique qual posição do json acessar */)">{{word.language}}: {{word.term}}</a><br />
                 {% endfor %}
             </nav>
+            <div>
+                Definição aqui
+            </div>
         </div>
     {% endfor %}
 {% else %}

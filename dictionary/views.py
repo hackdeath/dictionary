@@ -4,7 +4,8 @@ from django.template import loader
 from .models import Word, Language
 
 def detailWord(request, word):
-    ids = [obj.id for obj in Word.objects.filter(term=word)]
+    ids = [obj.id_word for obj in Word.objects.filter(term=word)]
+    ids = list(set(ids))
     result = Word.objects.filter(id_word__in=ids)
     words = [] # Agrupa as palavras de acordo com o id_word
     title = ""
@@ -13,7 +14,7 @@ def detailWord(request, word):
         title = result[0].term
 
     for key in ids:
-        words += [[word for word in query if word.id_word == key]]
+        words += [[word for word in result if word.id_word == key]]
 
     template = loader.get_template('dictionary/detailWord.html')
     context = {
