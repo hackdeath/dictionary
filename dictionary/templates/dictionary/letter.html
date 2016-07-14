@@ -1,13 +1,24 @@
 <div>
-	<h1><a href="#">{{ request.get_full_path | cut:"/dictionary/letter/" | slice:":-1" }}</a></h1>
+	{% if alphabet_list %}
+		{% for a in alphabet_list %}
+			<p>{{ a.language }}</p>
+			{% for i in a.alphabet|make_list %}
+				<a href="/dictionary/letter/{{ a.language }}/{{ i }}">{{ i }}</a>
+			{% endfor %}
+		{% endfor%}
+	{% endif %}
+</div>
+
+<div>
+	<h1>{{ letter }}</h1>
 </div>
 
 {% if word_list %}
     <ul>
     {% for a in word_list %}
 	    <div>
-	        {% if a.term|slice:":1" ==  request.get_full_path|cut:"/dictionary/letter/"|slice:":-1" %}
-	        	<li><a href="#">{{ a.term }}</a></li>
+	        {% if a.term|slice:":1" ==  letter %}
+	        	<li><a href="/dictionary/word/{{ a.term }}">{{ a.term }}</a></li>
 	        {% endif %}
 		</div>
     {% endfor %}
