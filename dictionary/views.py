@@ -18,7 +18,7 @@ def detailWord(request, word):
 
     template = loader.get_template('dictionary/detailWord.html')
     context = {
-        'title': title,
+        'title': word,
         'words': words,
     }
 

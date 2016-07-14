@@ -1,28 +1,38 @@
 <h1>{{ title }}</h1>
 
 <script>
-var text = '{"words": [ {% for group in words %} {% for word in group %} {"term": "{{ word.term }}", "language": "{{ word.language }}", "definition": "{{ word.definition }}"} {% if forloop.last %}]}';{% else %}, {% endif %} {% endfor %} {% endfor %}
+    var words = [ {% for group in words %} {% for word in group %} {"term": "{{ word.term }}", "language": "{{ word.language }}", "definition": "{{ word.definition }}"} {% if forloop.last %}];{% else %}, {% endif %} {% endfor %} {% endfor %}
 
-var words = JSON.parse(text);
+function update(term, language) {
+    var info = document.getElementById("id-div");
+    var word;
 
-function definition() {
-    /*************************************************************** /
-    /*  Alterar conteúdo da div que exibe a definição de uma palavra /
-    /****************************************************************/
+    for (i = 0; i < words.length; i++) {
+        word = words[i];
+
+        if (word.term === term) {
+            if (word.language === language) {
+                break;
+            }
+        }
+    }
+
+    info.innerHTML = "<h2>" + word.term + "</h2>\n\n<p>" + word.definition + "</p>";
 }
+
 </script>
 
 {% if words %}
     {% for group in words %}
         <div>
-            <p>{{ forloop.counter }}</p>
-            <nav>
+            <p class="id-div-info">{{ forloop.counter }}</p>
+            <ul>
                 {% for word in group %}
-                    <a onclick="definition(/* algo que indique qual posição do json acessar */)">{{word.language}}: {{word.term}}</a><br />
+                    <li><a style="cursor: pointer" onclick='update("{{ word.term }}", "{{ word.language }}")'>{{word.language}}: {{word.term}}</a></li><br />
                 {% endfor %}
-            </nav>
-            <div>
-                Definição aqui
+            </ul>
+            <div id="id-div">
+                
             </div>
         </div>
     {% endfor %}
