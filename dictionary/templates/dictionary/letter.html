@@ -1,4 +1,10 @@
 <div>
+	<select>
+		{% for a in alphabet_list %}
+			<option onclick="document.location='/dictionary/letter/{{ a.language }}/a';">{{ a.language }}</a></option>
+		{% endfor%}
+	</select>
+	
 	{% if alphabet_list %}
 		{% for a in alphabet_list %}
 			<p>{{ a.language }}</p>
@@ -6,6 +12,8 @@
 				<a href="/dictionary/letter/{{ a.language }}/{{ i }}">{{ i }}</a>
 			{% endfor %}
 		{% endfor%}
+	{% else %}
+    	<p>No alphabets are available.</p>
 	{% endif %}
 </div>
 

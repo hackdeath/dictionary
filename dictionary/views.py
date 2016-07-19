@@ -31,7 +31,7 @@ def index(request):
 
 def letter(request, lang, letter):
     word_list = Word.objects.filter(language=lang).filter(term__startswith=letter).order_by('term')
-    alphabet_list = Language.objects.filter(language=lang)
+    alphabet_list = Language.objects.all()
     context = {
         'word_list': word_list,
         'alphabet_list': alphabet_list,
