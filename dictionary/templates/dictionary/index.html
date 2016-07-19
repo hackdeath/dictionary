@@ -10,17 +10,35 @@
 	<button onclick="redirect()">Buscar</button>
 	
 	<!--Linguagens e alfabetos-->
-	<select>
+	<select id="languageSelector" onchange="changeAlphabet()">
 		{% for lang in languages.all %}
 			<option>{{lang.language}}</option>
 		{% endfor%}
 	</select>
 
+
 	<script type="text/javascript">
+	    var l = [	{% for lang in languages.all %}{"language":"{{ lang.language }}", "alphabet":"{{ lang.alphabet }}"} {% if forloop.last %} ]; {% else %} , {% endif %}
+	    			{% endfor %}
+
 		function redirect() {
 			var current_url = window.location.href;
 			current_url += "word/" + document.getElementById("search-text").value;
 			window.location.href = current_url;
+		}
+
+		function changeAlphabet() {
+			var langSelect = document.getElementById("languageSelector").value;
+			for (var i = 0; i < l.length; i++) {
+				if (l[i].language == langSelect) {
+					displayNewAlphabet(l[i].alphabet);
+					return;
+				}
+			}
+		}
+
+		function displayNewAlphabet (alphabet) {
+			//Destruir e reconstruir a lista de links baseando-se no novo alfabeto
 		}
 	</script>
 </body>
