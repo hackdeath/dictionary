@@ -8,19 +8,12 @@ def detailWord(request, word):
     ids = list(set(ids))
     result = Word.objects.filter(id_word__in=ids)
     words = [] # Agrupa as palavras de acordo com o id_word
-    title = ""
-
-    if (result):
-        title = result[0].term
 
     for key in ids:
         words += [[word for word in result if word.id_word == key]]
 
     template = loader.get_template('dictionary/detailWord.html')
-    context = {
-        'title': word,
-        'words': words,
-    }
+    context = { 'title': word, 'words': words, }
 
     return HttpResponse(template.render(context, request))
 
