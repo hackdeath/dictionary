@@ -2,8 +2,11 @@
 
 <html lang="pt-br">
     <head>
-        <title>{% block title %}{% endblock %}</title >
+        <title>{% block title %}{% endblock %}</title>
 
+        {% load staticfiles %}
+        <link rel="stylesheet" type="text/css" href="{% static 'dictionary/css/style.css' %}" />
+        
         <script>
             {% block javascript %}
             {% endblock %}
@@ -25,7 +28,7 @@
         {% block content %}
         {% endblock %}
 
-        <footer>
+        <footer class="footer">
             <span>&copy; 2016 - Technical Dictionary</span>
         </footer>
     </body>
