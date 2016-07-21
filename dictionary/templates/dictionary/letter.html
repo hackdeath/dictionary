@@ -1,27 +1,57 @@
-<div>
-	{% if alphabet_list %}
-		{% for a in alphabet_list %}
-			<p>{{ a.language }}</p>
-			{% for i in a.alphabet|make_list %}
-				<a href="/dictionary/letter/{{ a.language }}/{{ i }}">{{ i }}</a>
-			{% endfor %}
-		{% endfor%}
-	{% endif %}
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>letter - {{ letter }}</title>
+</head>
+<body>
+	<div>
+		<select id="languageSelected" onchange="redirect()">
+			{% for a in language_list %}
+				{% if a.language == lang %}
+					<option value="{{ a.language }}" selected>{{ a.language }}</option>
+				}
+				{% else %}
+					<option value="{{ a.language }}">{{ a.language }}</option>
+				{% endif %}
+			{% endfor%}
+		</select>		
+	</div>
 
-<div>
-	<h1>{{ letter }}</h1>
-</div>
+	<div>
+		{% if alphabet_list %}
+			{% for a in alphabet_list %}
+				{% for i in a.alphabet|make_list %}
+					<a href="/dictionary/letter/{{ a.language }}/{{ i }}">{{ i }}</a>
+				{% endfor %}
+			{% endfor%}
+		{% endif %}
+	</div>
 
-{% if word_list %}
-    <ul>
-    {% for a in word_list %}
-	    <div>
-	        {% if a.term|slice:":1" ==  letter %}
-	        	<li><a href="/dictionary/word/{{ a.term }}">{{ a.term }}</a></li>
-	        {% endif %}
-		</div>
-    {% endfor %}
-{% else %}
-    <p>No words are available.</p>
-{% endif %}
+	<div>
+		<h1>{{ letter }}</h1>
+	</div>
+
+	<div>
+		{% if word_list %}
+		    <ul>
+		    {% for a in word_list %}
+			    <div>
+			        {% if a.term|slice:":1" ==  letter %}
+			        	<li><a href="/dictionary/word/{{ a.term }}">{{ a.term }}</a></li>
+			        {% endif %}
+				</div>
+		    {% endfor %}
+		    </ul>
+		{% else %}
+		    <p>No words are available.</p>
+		{% endif %}
+	</div>
+
+	<script type="text/javascript">
+		function redirect(){
+			languageSelected = document.getElementById('languageSelected').value;
+			window.location.href = "/dictionary/letter/" + languageSelected + "/a";
+		}
+	</script>
+</body>
+</html>
