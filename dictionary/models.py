@@ -13,11 +13,11 @@ class Word(models.Model):
     term       = models.CharField(max_length=30)
     definition = models.CharField(max_length=150)
     category   = models.CharField(max_length=30)
+    stage      = models.CharField(max_length=1, default='n')
 
     def __str__(self):
         return "({0} - {1}) {2}: {3}".format(self.id_word, self.language, self.term, self.definition)
 
-    
 """
 ####Sample
 
