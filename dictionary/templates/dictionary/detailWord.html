@@ -5,14 +5,32 @@
 
 <script>
 {% block javascript %}
-    var words = [ {% for group in words %} {% for word in group %} {"term": "{{ word.term }}", "language": "{{ word.language }}", "definition": "{{ word.definition }}"} {% if forloop.last %}];{% else %}, {% endif %} {% endfor %} {% endfor %}
+    var words_json = 
+    [
+    {% for meaning in words %}
+        [
+        {% for word in meaning %}
+            {"term": "{{ word.term }}", "language": "{{ word.language }}", "definition": "{{ word.definition }}"}
 
-function update(term, language) {
-    var info = document.getElementById("id-div");
+            {% if not forloop.last %}
+            ,
+            {% endif %}
+        {% endfor %}
+        ]
+
+        {% if forloop.last %}
+    ]
+        {% else %}
+        ,
+        {% endif %}
+{% endfor %}
+    ;
+function update(term, language, meaning) {
+    var info = document.getElementById("id-div-" + meaning);
     var word;
 
-    for (i = 0; i < words.length; i++) {
-        word = words[i];
+    for (i = 0; i < words_json[parseInt(meaning)-1].length; i++) {
+        word = words_json[parseInt(meaning)-1][i];
 
         if (word.term === term) {
             if (word.language === language) {
@@ -36,10 +54,10 @@ function update(term, language) {
             <p class="id-div-info">{{ forloop.counter }}</p>
             <ul>
                 {% for word in group %}
-                    <li><a style="cursor: pointer" onclick='update("{{ word.term }}", "{{ word.language }}")'>{{word.language}}: {{word.term}}</a></li><br />
+                    <li>({{word.language}}) <a style="cursor: pointer" onclick='update("{{ word.term }}", "{{ word.language }}", "{{ forloop.counter }}")'>{{word.term}}</a></li>
                 {% endfor %}
             </ul>
-            <div id="id-div">
+            <div id="id-div-{{ forloop.counter }}">
                 
             </div>
         </div>
