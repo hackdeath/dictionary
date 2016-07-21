@@ -54,7 +54,7 @@ function update(term, language, meaning) {
             <p class="id-div-info">{{ forloop.counter }}</p>
             <ul>
                 {% for word in group %}
-                    <li>({{word.language}}) <a style="cursor: pointer" onclick='update("{{ word.term }}", "{{ word.language }}", "{{ forloop.counter }}")'>{{word.term}}</a></li><br />
+                    <li>({{word.language}}) <a style="cursor: pointer" onclick='update("{{ word.term }}", "{{ word.language }}", "{{ forloop.counter }}")'>{{word.term}}</a></li>
                 {% endfor %}
             </ul>
             <div id="id-div-{{ forloop.counter }}">
