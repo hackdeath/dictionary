@@ -17,21 +17,3 @@ class Word(models.Model):
 
     def __str__(self):
         return "({0} - {1}) {2}: {3}".format(self.id_word, self.language, self.term, self.definition)
-
-"""
-####Sample
-
-Word
-  | id | id_word | language | id_word | term    | definition | category |
-  | -- | ------- | -------- | ------- | ----    | ---------- | -------- |
-  | 01 | 01      | pt_br    | 01      | olá     | ...        | ...      | 
-  | 02 | 01      | es_es    | 01      | hello   | ...        | ...      |
-
-Language
-
-  | language |           alphabet          |
-  | -------- | --------                    |
-  | pt-br    | abcdefghijklmnopqrstuvwxyz  |
-  | en-us    | abcdefghijklmnopqrstuvwxyz  |
-  | es-es    | abcdefghijklmnñopqrstuvwxyz |
-"""

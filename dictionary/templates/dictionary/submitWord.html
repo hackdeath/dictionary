@@ -1,0 +1,17 @@
+{% extends "dictionary/base.html" %}
+
+{% block title %}Help us!{% endblock %}
+
+{% block content %}
+{% if form %}
+<h1>Submit a new translation</h1>
+
+<form method="POST">
+    {% csrf_token %} 
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+{% else %}
+<h1>Thank you for your contribution</h1>
+{% endif %}
+{% endblock %}

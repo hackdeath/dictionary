@@ -1,7 +1,8 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.template import loader
-from .models import Word, Language
+from  django.shortcuts import render
+from  django.http      import HttpResponse
+from  django.template  import loader
+from .models           import Word, Language
+from .forms            import WordForm
 
 def detailWord(request, word):
     ids = list(set([obj.id_word for obj in Word.objects.filter(term=word)]))
@@ -16,6 +17,27 @@ def detailWord(request, word):
     context = { 'title': word, 'words': words, }
 
     return HttpResponse(template.render(context, request))
+
+def submitWord(request):
+    template = loader.get_template('dictionary/submitWord.html')
+
+    if request.method == 'GET':
+        form = WordForm()
+        return HttpResponse(template.render({'form': form }, request))
+    else:
+        form = WordForm(request.POST)
+
+        if form.is_valid():
+            new_word = Word.objects.create(language   = Language.objects.get(language=form.cleaned_data['language']),
+                                           id_word    = form.cleaned_data['id_word'],
+                                           term       = form.cleaned_data['term'],
+                                           definition = form.cleaned_data['definition'],
+                                           category   = form.cleaned_data['category'],
+                                           stage      = 'y')
+
+            new_word.save()
+
+        return HttpResponse(template.render({}, request))
 
 def index(request):
     languages = Language.objects.all()
