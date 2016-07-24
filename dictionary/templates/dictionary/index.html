@@ -1,23 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Dicionário - Busca</title>
-</head>
-<body>
-	<!--Área de pesquisa-->
-	<input type="text" id="search-text" placeholder="Digite uma palavra">
-	<button onclick="redirect()">Buscar</button>
-	
-	<!--Linguagens e alfabetos-->
-	<select id="languageSelector" onchange="changeAlphabet()">
-		{% for lang in languages.all %}
-			<option>{{lang.language}}</option>
-		{% endfor%}
-	</select>
+{% extends "dictionary/base.html" %}
 
+{% block title %}Dicionário - Busca{% endblock %}
 
-	<script type="text/javascript">
+<script type="text/javascript">
+{% block javascript %}
 	    var l = [	{% for lang in languages.all %}{"language":"{{ lang.language }}", "alphabet":"{{ lang.alphabet }}"} {% if forloop.last %} ]; {% else %} , {% endif %}
 	    			{% endfor %}
 
@@ -40,6 +26,20 @@
 		function displayNewAlphabet (alphabet) {
 			//Destruir e reconstruir a lista de links baseando-se no novo alfabeto
 		}
-	</script>
-</body>
-</html>
+{% endblock %}
+</script>
+
+{% block content %}
+	<!--Área de pesquisa-->
+	<input type="text" id="search-text" placeholder="Digite uma palavra">
+	<button onclick="redirect()">Buscar</button>
+	
+	<!--Linguagens e alfabetos-->
+	<select id="languageSelector" onchange="changeAlphabet()">
+		{% for lang in languages.all %}
+			<option>{{lang.language}}</option>
+		{% endfor%}
+	</select>
+
+
+{% endblock %}

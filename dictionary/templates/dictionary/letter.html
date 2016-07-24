@@ -1,3 +1,8 @@
+{% extends "dictionary/base.html" %}
+
+{% block title %}Letter{% endblock %}
+
+{% block content %}
 <div>
     {% if alphabet_list %}
         {% for a in alphabet_list %}
@@ -25,3 +30,4 @@
 {% else %}
     <p>No words are available.</p>
 {% endif %}
+{% endblock %}
