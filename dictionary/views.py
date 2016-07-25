@@ -14,22 +14,26 @@ def detailWord(request, word):
         words += [[word for word in result if word.id_word == key]]
 
     template = loader.get_template('dictionary/detailWord.html')
-    context = { 'title': word, 'words': words, }
+    context = { 'title': word, 'words': words }
 
     return HttpResponse(template.render(context, request))
 
-def submitWord(request):
+def submitWord(request, id_word):
     template = loader.get_template('dictionary/submitWord.html')
 
     if request.method == 'GET':
-        form = WordForm(initial={'language': 'en-us'})
+        if id_word != '0':
+            form = WordForm(initial={'language': 'en-us', 'id_word': id_word})
+        else:
+            form = WordForm(initial={'language': 'en-us', 'id_word': Word.objects.all().last().id_word + 1})
+            
         return HttpResponse(template.render({'form': form }, request))
     else:
         form = WordForm(request.POST)
 
         if form.is_valid():
             new_word = Word.objects.create(language   = Language.objects.get(language=form.cleaned_data['language']),
-                                           id_word    = Word.objects.all().last().id_word + 1,
+                                           id_word    = form.cleaned_data['id_word'],
                                            term       = form.cleaned_data['term'],
                                            definition = form.cleaned_data['definition'],
                                            category   = form.cleaned_data['category'],

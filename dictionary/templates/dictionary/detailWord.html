@@ -41,7 +41,6 @@ function update(term, language, meaning) {
 
     info.innerHTML = "<h2>" + word.term + "</h2>\n\n<p>" + word.definition + "</p>";
 }
-
 {% endblock %}
 </script>
 
@@ -57,6 +56,9 @@ function update(term, language, meaning) {
             <ul>
                 {% for word in group %}
                     <li>({{word.language}}) <a style="cursor: pointer" onclick='update("{{ word.term }}", "{{ word.language }}", "{{ meaning }}")'>{{word.term}}</a></li>
+                    {% if forloop.last %}
+                        <a href="/dictionary/submit/{{ word.id_word }}">Submit a enhacement</a>
+                    {% endif %}
                 {% endfor %}
             </ul>
             <div id="id-div-{{ meaning }}">

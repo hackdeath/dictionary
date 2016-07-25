@@ -7,5 +7,5 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^letter/(?P<lang>[A-Za-z-]+)/(?P<letter>.)/', views.letter, name='letter'),
     url(r'^word/(?P<word>.+)/', views.detailWord, name='detailWord'),
-    url(r'^submit/$', views.submitWord, name='submitWord'),
+    url(r'^submit/(?P<id_word>[0-9]+)/$', views.submitWord, name='submitWord'),
 ]
