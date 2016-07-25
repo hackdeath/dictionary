@@ -22,7 +22,7 @@ def submitWord(request):
     template = loader.get_template('dictionary/submitWord.html')
 
     if request.method == 'GET':
-        form = WordForm()
+        form = WordForm(initial={'language': 'en-us'})
         return HttpResponse(template.render({'form': form }, request))
     else:
         form = WordForm(request.POST)
