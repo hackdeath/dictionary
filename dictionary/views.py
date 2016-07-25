@@ -5,7 +5,7 @@ from .models           import Word, Language
 from .forms            import WordForm
 
 def detailWord(request, word):
-    ids = list(set([obj.id_word for obj in Word.objects.filter(term=word)]))
+    ids = list(set([obj.id_word for obj in Word.objects.filter(term=word, stage='n')]))
     template = loader.get_template('dictionary/detailWord.html')
     result = Word.objects.filter(id_word__in=ids)
     words = [] # Agrupa as palavras de acordo com o id_word
@@ -29,7 +29,7 @@ def submitWord(request):
 
         if form.is_valid():
             new_word = Word.objects.create(language   = Language.objects.get(language=form.cleaned_data['language']),
-                                           id_word    = form.cleaned_data['id_word'],
+                                           id_word    = Word.objects.all().last().id_word + 1,
                                            term       = form.cleaned_data['term'],
                                            definition = form.cleaned_data['definition'],
                                            category   = form.cleaned_data['category'],
