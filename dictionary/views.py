@@ -77,7 +77,7 @@ def accept(request, id):
 
     return HttpResponseRedirect('/dictionary/stage')
 
-def refuse(request, id, redirect):
+def delete(request, id, redirect):
     if redirect == 'stage':
         topage = '/dictionary/stage/'
     else:
