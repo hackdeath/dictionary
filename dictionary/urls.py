@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^submit/(?P<id_word>[0-9]+)/$', views.submitWord, name='submitWord'),
     url(r'^stage/$', views.stagearea, name='stagearea'),
     url(r'^accept/(?P<language>[A-Za-z-]+)/(?P<id_word>[0-9]+)/$', views.accept, name='accept'),
+    url(r'^refuse/(?P<language>[A-Za-z-]+)/(?P<id_word>[0-9]+)/$', views.refuse, name='refuse'),
 ]

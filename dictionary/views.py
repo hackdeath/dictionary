@@ -76,3 +76,9 @@ def accept(request, language, id_word):
     word.save()
 
     return HttpResponseRedirect('/dictionary/stage')
+
+def refuse(request, language, id_word):
+    word = Word.objects.get(language=language, id_word=id_word, stage='y')
+    word.delete()
+
+    return HttpResponseRedirect('/dictionary/stage')
