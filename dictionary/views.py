@@ -65,20 +65,19 @@ def stagearea(request):
 
     return HttpResponse(template.render(context, request))
 
-def accept(request, language, id_word):
-    word = Word.objects.filter(language=language, id_word=id_word, stage='n')
+def accept(request, id):
+    new_word = Word.objects.get(pk=id)
+    old_word = Word.objects.filter(language=new_word.language, id_word=new_word.id_word, stage='n')
 
-    if word.exists():
-        word[0].delete()
+    if old_word.exists():
+        old_word[0].delete()
 
-    word = Word.objects.get(language=language, id_word=id_word, stage='y')
-    word.stage = 'n'
-    word.save()
+    new_word.stage = 'n'
+    new_word.save()
 
     return HttpResponseRedirect('/dictionary/stage')
 
-def refuse(request, language, id_word):
-    word = Word.objects.get(language=language, id_word=id_word, stage='y')
-    word.delete()
+def refuse(request, id):
+    Word.objects.get(pk=id).delete()
 
     return HttpResponseRedirect('/dictionary/stage')
