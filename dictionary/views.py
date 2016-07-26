@@ -1,5 +1,5 @@
 from  django.shortcuts import render
-from  django.http      import HttpResponse
+from  django.http      import HttpResponse, HttpResponseRedirect
 from  django.template  import loader
 from .models           import Word, Language
 from .forms            import WordForm
@@ -7,7 +7,7 @@ from .forms            import WordForm
 def detailWord(request, word):
     ids = list(set([obj.id_word for obj in Word.objects.filter(term=word, stage='n')]))
     template = loader.get_template('dictionary/detailWord.html')
-    result = Word.objects.filter(id_word__in=ids)
+    result = Word.objects.filter(id_word__in=ids, stage='n')
     words = [] # Agrupa as palavras de acordo com o id_word
 
     for key in ids:
@@ -57,3 +57,22 @@ def letter(request, lang, letter):
         'letter': letter,
     }
     return render(request, 'dictionary/letter.html', context)
+
+def stagearea(request):
+    words = Word.objects.filter(stage='y')
+    context = { 'words': words, }
+    template = loader.get_template('dictionary/stagearea.html')
+
+    return HttpResponse(template.render(context, request))
+
+def accept(request, language, id_word):
+    word = Word.objects.filter(language=language, id_word=id_word, stage='n')
+
+    if word.exists():
+        word[0].delete()
+
+    word = Word.objects.get(language=language, id_word=id_word, stage='y')
+    word.stage = 'n'
+    word.save()
+
+    return HttpResponseRedirect('/dictionary/stage')

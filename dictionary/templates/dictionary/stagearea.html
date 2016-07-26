@@ -1,0 +1,30 @@
+{% extends "dictionary/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+<script>
+{% block javascript %}
+    var words_json = 
+        [
+        {% for word in words %}
+            {"term": "{{ word.term }}", "language": "{{ word.language }}", "definition": "{{ word.definition }}"}
+
+            {% if not forloop.last %}
+            ,
+            {% endif %}
+        {% endfor %}
+        ]
+    ;
+{% endblock %}
+</script>
+
+{% block content %}
+{% for word in words %}
+<ul>
+    <div>
+        <li>({{ word.language }}) {{ word.term }}: {{ word.definition }}</li>
+        <a href="/dictionary/accept/{{ word.language }}/{{ word.id_word }}/">Accept</a> <a href="">Refuse</a>
+    </div>
+</ul>
+{% endfor %}
+{% endblock %}
