@@ -49,7 +49,7 @@ def index(request):
     return render(request, 'dictionary/index.html', context)
 
 def letter(request, lang, letter):
-    word_list = Word.objects.filter(language=lang).filter(term__startswith=letter).order_by('term')
+    word_list = Word.objects.filter(language=lang, term__startswith=letter, stage='n').order_by('term')
     alphabet_list = Language.objects.filter(language=lang)
     context = {
         'word_list': word_list,
@@ -77,7 +77,11 @@ def accept(request, id):
 
     return HttpResponseRedirect('/dictionary/stage')
 
-def refuse(request, id):
+def refuse(request, id, redirect):
+    if redirect == 'stage':
+        topage = '/dictionary/stage/'
+    else:
+        topage = "/dictionary/letter/{0}/a/".format(redirect)
     Word.objects.get(pk=id).delete()
 
-    return HttpResponseRedirect('/dictionary/stage')
+    return HttpResponseRedirect(topage)

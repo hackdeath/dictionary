@@ -56,6 +56,7 @@ function update(term, language, meaning) {
             <ul>
                 {% for word in group %}
                     <li>({{word.language}}) <a style="cursor: pointer" onclick='update("{{ word.term }}", "{{ word.language }}", "{{ meaning }}")'>{{word.term}}</a></li>
+                    <a href="/dictionary/refuse/{{ word.id }}/{{ word.language }}/">Delete</a>
                     {% if forloop.last %}
                         <a href="/dictionary/submit/{{ word.id_word }}">Submit a enhacement</a>
                     {% endif %}
