@@ -48,14 +48,20 @@ def index(request):
     context = {'languages' : languages,}
     return render(request, 'dictionary/index.html', context)
 
-def letter(request, lang, letter):
-    word_list = Word.objects.filter(language=lang, term__startswith=letter, stage='n').order_by('term')
-    alphabet_list = Language.objects.filter(language=lang)
+def letter(request, lang):
+    word_list = Word.objects.filter(language=lang, stage='n').order_by('term')
+    alphabet_list = Language.objects.get(language=lang)
+    words = []
+
+    for letter in list(alphabet_list.alphabet):
+        words += [[word.term for word in word_list if word.term[0] == letter]]
+
     context = {
-        'word_list': word_list,
+        'word_list': words,
         'alphabet_list': alphabet_list,
         'letter': letter,
     }
+
     return render(request, 'dictionary/letter.html', context)
 
 def stagearea(request):
