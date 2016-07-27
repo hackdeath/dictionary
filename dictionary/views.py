@@ -77,11 +77,17 @@ def accept(request, id):
 
     return HttpResponseRedirect('/dictionary/stage')
 
-def delete(request, id, redirect):
+def refuse(request, id, redirect):
     if redirect == 'stage':
         topage = '/dictionary/stage/'
     else:
         topage = "/dictionary/letter/{0}/a/".format(redirect)
-    Word.objects.get(pk=id).delete()
+
+    deleteWord(id)
 
     return HttpResponseRedirect(topage)
+
+def deleteWord(id):
+    word = Word.objects.get(pk=id)
+
+    word.delete()
