@@ -1,8 +1,9 @@
-from  django.shortcuts import render
-from  django.http      import HttpResponse, HttpResponseRedirect
-from  django.template  import loader
-from .models           import Word, Language
-from .forms            import WordForm
+from .forms                      import WordForm
+from .models                     import Word, Language
+from  django.http                import HttpResponse, HttpResponseRedirect
+from  django.template            import loader
+from  django.shortcuts           import render
+from  django.contrib.auth.models import User
 
 def detailWord(request, word):
     ids = list(set([obj.id_word for obj in Word.objects.filter(term=word, stage='n')]))
@@ -15,6 +16,12 @@ def detailWord(request, word):
 
     template = loader.get_template('dictionary/detailWord.html')
     context = { 'title': word, 'words': words }
+
+    return HttpResponse(template.render(context, request))
+
+def login(request):
+    template = loader.get_template('dictionary/login.html')
+    context = { }
 
     return HttpResponse(template.render(context, request))
 

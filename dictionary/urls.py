@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^stage/$', views.stagearea, name='stagearea'),
     url(r'^accept/(?P<id>\d+)/$', views.accept, name='accept'),
     url(r'^refuse/(?P<id>\d+)/(?P<redirect>[A-Za-z-]+)/$', views.refuse, name='refuse'),
+    url(r'^login/$', views.login, name='login'),
 ]
