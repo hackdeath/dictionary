@@ -1,27 +1,24 @@
-<div>
-	{% if alphabet_list %}
-		{% for a in alphabet_list %}
-			<p>{{ a.language }}</p>
-			{% for i in a.alphabet|make_list %}
-				<a href="/dictionary/letter/{{ a.language }}/{{ i }}">{{ i }}</a>
-			{% endfor %}
-		{% endfor%}
-	{% endif %}
-</div>
+{% extends "dictionary/base.html" %}
 
-<div>
-	<h1>{{ letter }}</h1>
-</div>
+{% block title %}Letter{% endblock %}
 
-{% if word_list %}
-    <ul>
-    {% for a in word_list %}
-	    <div>
-	        {% if a.term|slice:":1" ==  letter %}
-	        	<li><a href="/dictionary/word/{{ a.term }}">{{ a.term }}</a></li>
-	        {% endif %}
-		</div>
-    {% endfor %}
-{% else %}
-    <p>No words are available.</p>
-{% endif %}
+{% block content %}
+    {% if word_list %}
+        <ul>
+        {% for words in word_list %}
+            {% if words %}
+            <div>
+            {% for word in words %}
+                {% if forloop.first %}
+                <h2>{{ word | slice:":1" }}</h2>
+                {% endif %}
+                <li><a href="/dictionary/word/{{ word }}/">{{ word }}</a></li>
+            {% endfor %}
+            <div>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No words are available.</p>
+    {% endif %}
+{% endblock %}

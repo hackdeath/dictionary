@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 
-<html lang="pt-br">
+<html lang="en-us">
     <head>
         <title>{% block title %}{% endblock %}</title>
 
         {% load staticfiles %}
         <link rel="stylesheet" type="text/css" href="{% static 'dictionary/css/style.css' %}" />
         
-        <script>
+        <script type="text/javascript">
             {% block javascript %}
             {% endblock %}
         </script>
@@ -20,7 +20,9 @@
             <div>
                 <ul>
                     <li><a href="/dictionary">Index</a></li>
-                    <li><a href="/dictionary/letter/en-us/a/">Alphabet</a></li>
+                    <li><a href="/dictionary/letter/en-us/">Alphabet</a></li>
+                    <li><a href="/dictionary/submit/0">Help us</a></li>
+                    <li><a href="/dictionary/stage/">Stage area</a></li>
                 </ul>
             </div>
         </header>
