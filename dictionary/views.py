@@ -87,7 +87,7 @@ def refuse(request, id, redirect):
     if redirect == 'stage':
         topage = '/dictionary/stage/'
     else:
-        topage = "/dictionary/letter/{0}/a/".format(redirect)
+        topage = "/dictionary/letter/{0}/".format(redirect)
 
     deleteWord(id)
 

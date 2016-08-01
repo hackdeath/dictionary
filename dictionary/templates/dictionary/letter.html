@@ -10,7 +10,7 @@
             <div>
             {% for word in words %}
                 {% if forloop.first %}
-                <h2>{{ word | slice:":1" }}</h2>
+                <h2 id="letter-{{ word | slice:":1" }}">{{ word | slice:":1" }}</h2>
                 {% endif %}
                 <li><a href="/dictionary/word/{{ word }}/">{{ word }}</a></li>
             {% endfor %}
