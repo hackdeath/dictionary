@@ -3,37 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Dicionário - Busca</title>
-	
-	<script type="text/javascript">
-	    var l = [	{% for lang in languages.all %}{"language":"{{ lang.language }}", "alphabet":"{{ lang.alphabet }}"} {% if forloop.last %} ]; {% else %} , {% endif %}
-	    			{% endfor %}
 
-		function redirect() {
-			var current_url = window.location.href;
-			current_url += "word/" + document.getElementById("search-text").value;
-			window.location.href = current_url;
-		}
-
-		function changeAlphabet() {
-			var langSelect = document.getElementById("languageSelector").value;
-			for (var i = 0; i < l.length; i++) {
-				if (l[i].language == langSelect) {
-					displayNewAlphabet(l[i].alphabet, langSelect);
-					return;
-				}
-			}
-		}
-
-		function displayNewAlphabet (alphabet, lang) {
-			var newDivAlphabet = "";
-
-			for (var i = 0; i < alphabet.length; i++) {
-				newDivAlphabet += "<a href=\"letter\/" + lang + "\/" + alphabet[i] + "\">" + alphabet[i] + "<\/a> ";
-			}
-
-			document.getElementById("divAlphabet").innerHTML = newDivAlphabet;
-		}
-	</script>
 
 </head>
 <body>
