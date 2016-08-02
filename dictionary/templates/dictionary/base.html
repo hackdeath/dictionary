@@ -1,38 +1,35 @@
 <!DOCTYPE html>
 
 <html lang="en-us">
-    <head>
-        <meta charset="UTF-8" /> 
-        <title>{% block title %}{% endblock %}</title>
+<head>
+	<meta charset="UTF-8" /> 
+	<title>{% block title %}{% endblock %}</title>
 
-        {% load staticfiles %}
-        <link rel="stylesheet" type="text/css" href="{% static 'dictionary/css/style.css' %}" />
-        
-        <script type="text/javascript">
-            {% block javascript %}
-            {% endblock %}
-        </script>
-    </head>
-    <body>
-        <header>
-            <div>
-                <h1><a href="/dictionary/">Dictecnic</a></h1>
-            </div>
-            <div>
-                <ul>
-                    <li><a href="/dictionary">Index</a></li>
-                    <li><a href="/dictionary/letter/en-us/">Alphabet</a></li>
-                    <li><a href="/dictionary/submit/0">Help us</a></li>
-                    <li><a href="/dictionary/stage/">Stage area</a></li>
-                </ul>
-            </div>
-        </header>
+	<link rel="stylesheet" type="text/css" href="http://www.w3schools.com/lib/w3.css">
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'dictionary/css/style.css' %}" />
 
-        {% block content %}
-        {% endblock %}
+	<script type="text/javascript">
+		{% block javascript %}
+		{% endblock %}
+	</script>
+</head>
+<body>
+	<nav>
+		<ul class="w3-navbar w3-green w3-card-2 w3-top w3-left-align w3-large">
+			<li><a class="w3-teal" href="/dictionary/">Dictecnic</a></li>
+			<li><a href="/dictionary">Index</a></li>
+			<li><a href="/dictionary/letter/en-us/">Alphabet</a></li>
+			<li><a href="/dictionary/submit/0">Help us</a></li>
+			<li><a href="/dictionary/stage/">Stage area</a></li>
+		</ul>
+	</nav>
 
-        <footer class="footer">
-            <span>&copy; 2016 - Technical Dictionary</span>
-        </footer>
-    </body>
+	{% block content %}
+	{% endblock %}
+
+	<footer class="footer">
+		<span>&copy; 2016 - Technical Dictionary</span>
+	</footer>
+</body>
 </html>
