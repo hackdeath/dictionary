@@ -3,7 +3,9 @@ from .models                     import Word, Language
 from  django.http                import HttpResponse, HttpResponseRedirect
 from  django.template            import loader
 from  django.shortcuts           import render
+from  django.contrib.auth        import authenticate, login as auth_login, logout as auth_logout
 from  django.contrib.auth.models import User
+from  django.contrib.auth.decorators import login_required
 
 def detailWord(request, word):
     ids = list(set([obj.id_word for obj in Word.objects.filter(term=word, stage='n')]))
@@ -19,11 +21,34 @@ def detailWord(request, word):
 
     return HttpResponse(template.render(context, request))
 
-def login(request):
+def login_page(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/dictionary/')
+
     template = loader.get_template('dictionary/login.html')
     context = { }
 
     return HttpResponse(template.render(context, request))
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+                auth_login(request, user)
+                return HttpResponseRedirect('/dictionary/')
+            else:
+                return HttpResponse('Error sir :3')
+        else:
+            return HttpResponse("Invalid login details supplied.")
+
+def logout(request):
+    auth_logout(request)
+    return HttpResponseRedirect('/dictionary/')
 
 def submitWord(request, id_word):
     template = loader.get_template('dictionary/submitWord.html')
@@ -61,7 +86,7 @@ def letter(request, lang):
     words = []
 
     for letter in list(alphabet_list.alphabet):
-        words += [[word.term for word in word_list if word.term[0] == letter]]
+        words += [[word.term for word in word_list if word.term.lower()[0] == letter]]
 
     context = {
         'word_list': words,
@@ -71,6 +96,7 @@ def letter(request, lang):
 
     return render(request, 'dictionary/letter.html', context)
 
+@login_required
 def stagearea(request):
     words = Word.objects.filter(stage='y')
     context = { 'words': words, }
@@ -78,18 +104,21 @@ def stagearea(request):
 
     return HttpResponse(template.render(context, request))
 
+@login_required
 def accept(request, id):
-    new_word = Word.objects.get(pk=id)
-    old_word = Word.objects.filter(language=new_word.language, id_word=new_word.id_word, stage='n')
+    if request.user.is_authenticated():
+        new_word = Word.objects.get(pk=id)
+        old_word = Word.objects.filter(language=new_word.language, id_word=new_word.id_word, stage='n')
 
-    if old_word.exists():
-        old_word[0].delete()
+        if old_word.exists():
+            old_word[0].delete()
 
-    new_word.stage = 'n'
-    new_word.save()
+        new_word.stage = 'n'
+        new_word.save()
 
     return HttpResponseRedirect('/dictionary/stage')
 
+@login_required
 def refuse(request, id, redirect):
     if redirect == 'stage':
         topage = '/dictionary/stage/'
@@ -100,6 +129,7 @@ def refuse(request, id, redirect):
 
     return HttpResponseRedirect(topage)
 
+@login_required
 def deleteWord(id):
     word = Word.objects.get(pk=id)
 

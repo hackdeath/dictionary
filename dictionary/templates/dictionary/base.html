@@ -23,7 +23,18 @@
                     <li><a href="/dictionary">Index</a></li>
                     <li><a href="/dictionary/letter/en-us/">Alphabet</a></li>
                     <li><a href="/dictionary/submit/0">Help us</a></li>
+                    {% if user.is_anonymous %}
+                    <li><a href="/dictionary/login_page/">Login</a></li>
+                    {% else %}
                     <li><a href="/dictionary/stage/">Stage area</a></li>
+                    <li><a href="/dictionary/logout/">Logout</a></li>
+                    {% endif %}
+
+                    {% if user.is_anonymous %}
+                        <div>Visitante</div>
+                    {% else %}
+                        <div>{{ user }}</div>
+                    {% endif %}
                 </ul>
             </div>
         </header>
