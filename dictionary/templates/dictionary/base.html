@@ -5,42 +5,38 @@
         <meta charset="UTF-8" /> 
         <title>{% block title %}{% endblock %}</title>
 
+        <link rel="stylesheet" type="text/css" href="http://www.w3schools.com/lib/w3.css">
         {% load staticfiles %}
         <link rel="stylesheet" type="text/css" href="{% static 'dictionary/css/style.css' %}" />
-        
+
         <script type="text/javascript">
-            {% block javascript %}
-            {% endblock %}
+            {% block javascript %}{% endblock %}
         </script>
     </head>
     <body>
-        <header>
-            <div>
-                <h1><a href="/dictionary/">Dictecnic</a></h1>
-            </div>
-            <div>
-                <ul>
-                    <li><a href="/dictionary">Index</a></li>
-                    <li><a href="/dictionary/letter/en-us/">Alphabet</a></li>
-                    <li><a href="/dictionary/submit/0">Help us</a></li>
-                    {% if user.is_anonymous %}
-                    <li><a href="/dictionary/login_page/">Login</a></li>
-                    {% else %}
-                    <li><a href="/dictionary/stage/">Stage area</a></li>
-                    <li><a href="/dictionary/logout/">Logout</a></li>
-                    {% endif %}
+        <nav>
+            <ul class="w3-navbar w3-green w3-card-2 w3-top w3-left-align w3-large">
+                <li><a class="w3-teal" href="/dictionary/">Dictecnic</a></li>
+                <li><a href="/dictionary">Index</a></li>
+                <li><a href="/dictionary/letter/en-us/">Alphabet</a></li>
+                <li><a href="/dictionary/submit/0">Help us</a></li>
+                {% if user.is_anonymous %}
+                <li><a href="/dictionary/login_page/">Login</a></li>
+                {% else %}
+                <li><a href="/dictionary/stage/">Stage area</a></li>
+                <li><a href="/dictionary/logout/">Logout</a></li>
+                {% endif %}
+                <li class='w3-right'>
+                {% if user.is_anonymous %}
+                    Visitante
+                {% else %}
+                    {{ user }}
+                {% endif %}</li>
+            </ul>
 
-                    {% if user.is_anonymous %}
-                        <div>Visitante</div>
-                    {% else %}
-                        <div>{{ user }}</div>
-                    {% endif %}
-                </ul>
-            </div>
-        </header>
+        </nav>
 
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
 
         <footer class="footer">
             <span>&copy; 2016 - Technical Dictionary</span>
