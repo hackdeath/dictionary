@@ -83,6 +83,7 @@ def index(request):
 def letter(request, lang):
     word_list = Word.objects.filter(language=lang, stage='n').order_by('term')
     alphabet_list = Language.objects.get(language=lang)
+    language_list = Language.objects.values('language')
     words = []
 
     for letter in list(alphabet_list.alphabet):
@@ -91,7 +92,8 @@ def letter(request, lang):
     context = {
         'word_list': words,
         'alphabet_list': alphabet_list,
-        'letter': letter,
+        'lang': lang,
+        'language_list': language_list,
     }
 
     return render(request, 'dictionary/letter.html', context)

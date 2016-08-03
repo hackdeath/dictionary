@@ -2,7 +2,26 @@
 
 {% block title %}Letter{% endblock %}
 
+<script>
+{% block javascript %}
+	function redirect(){
+			languageSelected = document.getElementById('languageSelected').value;
+			window.location.href = "/dictionary/letter/" + languageSelected;
+		}
+{% endblock %}
+</script>
+
 {% block content %}
+	<select id="languageSelected" onchange="redirect()">
+		{% for a in language_list %}
+			{% if a.language == lang %}
+				<option value="{{ a.language }}" selected>{{ a.language }}</option>
+			{% else %}
+				<option value="{{ a.language }}">{{ a.language }}</option>
+			{% endif %}
+		{% endfor%}
+	</select>
+
     {% if word_list %}
         <ul>
         {% for words in word_list %}
@@ -13,7 +32,7 @@
                 <h2 id="letter-{{ word | slice:":1" }}">{{ word | slice:":1" }}</h2>
                 {% endif %}
                 <li><a href="/dictionary/word/{{ word }}/">{{ word }}</a></li>
-            {% endfor %}
+            	{% endfor %}
             <div>
             {% endif %}
         {% endfor %}
