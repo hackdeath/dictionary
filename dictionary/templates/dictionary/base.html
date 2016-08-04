@@ -1,45 +1,65 @@
 <!DOCTYPE html>
 
 <html lang="en-us">
-    <head>
-        <meta charset="UTF-8" /> 
-        <title>{% block title %}{% endblock %}</title>
+<head>
+    <meta charset="UTF-8" /> 
+    <title>{% block title %}{% endblock %}</title>
 
-        <link rel="stylesheet" type="text/css" href="http://www.w3schools.com/lib/w3.css">
-        {% load staticfiles %}
-        <link rel="stylesheet" type="text/css" href="{% static 'dictionary/css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="http://www.w3schools.com/lib/w3.css">
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dictionary/css/style.css' %}" />
 
-        <script type="text/javascript">
-            {% block javascript %}{% endblock %}
-        </script>
-    </head>
-    <body>
-        <nav>
-            <ul class="w3-navbar w3-green w3-card-2 w3-top w3-left-align w3-large">
-                <li><a class="w3-teal" href="/dictionary/">Dictecnic</a></li>
-                <li><a href="/dictionary">Index</a></li>
-                <li><a href="/dictionary/letter/en-us/">Alphabet</a></li>
-                <li><a href="/dictionary/submit/0">Help us</a></li>
-                {% if user.is_anonymous %}
-                <li><a href="/dictionary/login_page/">Login</a></li>
-                {% else %}
-                <li><a href="/dictionary/stage/">Stage area</a></li>
-                <li><a href="/dictionary/logout/">Logout</a></li>
-                {% endif %}
-                <li class='w3-right'>
-                {% if user.is_anonymous %}
-                    Visitante
-                {% else %}
-                    {{ user }}
-                {% endif %}</li>
-            </ul>
+    <script type="text/javascript">
+        {% block javascript %}{% endblock %}
+    </script>
 
-        </nav>
+    <script type="text/javascript">
+        function dropUserOptions() {
+            var x = document.getElementById("userNavDrop");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
+</head>
+<body>
+    <nav class="w3-top">
+        <ul class="w3-navbar w3-green w3-card-2 w3-large">
+            <li><a class="w3-teal" href="/dictionary/">Dictecnic</a></li>
+            <li><a href="/dictionary">Index</a></li>
+            <li><a href="/dictionary/letter/en-us/">Alphabet</a></li>
+            <li><a href="/dictionary/submit/0">Help us</a></li>
+            {% if user.is_anonymous %}
+            <li class='w3-right'><a href="/dictionary/login_page/">Login</a></li>
+            {% else %}
+            <li class="w3-right w3-dropdown-click">
+                <a onclick="dropUserOptions()">{{user}}</a>
+                <div id="userNavDrop" class="w3-dropdown-content w3-white w3-card-4 w3-animate-zoom dropdown">
+                    <a class="w3-padding-16" href="/dictionary/stage/">Stage area</a>
+                    <a class="w3-padding-16" href="/dictionary/logout/">Logout</a>
+                </div>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <div class="w3-container">
+    
+    {% block content %}{% endblock %}
 
-        {% block content %}{% endblock %}
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-        <footer class="footer">
-            <span>&copy; 2016 - Technical Dictionary</span>
-        </footer>
-    </body>
+
+    </div>
+
+    <footer class="footer">
+        <span>&copy; 2016 - Technical Dictionary</span>
+    </footer>
+</body>
 </html>
