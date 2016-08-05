@@ -2,60 +2,69 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        {% block title %}Dicionário - Busca{% endblock %}
+<head>
+	{% block title %}Dicionário - Busca{% endblock %}
 
-        <script type="text/javascript">
-        {% block javascript %}
-                    var l = [	{% for lang in languages.all %}{"language":"{{ lang.language }}", "alphabet":"{{ lang.alphabet }}"} {% if forloop.last %} ]; {% else %} , {% endif %}
-                                        {% endfor %}
+	<script type="text/javascript">
+		{% block javascript %}
+		var l = [	{% for lang in languages.all %}{"language":"{{ lang.language }}", "alphabet":"{{ lang.alphabet }}"} {% if forloop.last %} ]; {% else %} , {% endif %}
+		{% endfor %}
 
-        function redirect() {
-            var current_url = window.location.href;
-            current_url += "word/" + document.getElementById("search-text").value;
-            window.location.href = current_url;
-        }
+		function redirect() {
+			var current_url = window.location.href;
+			current_url += "word/" + document.getElementById("search-text").value;
+			window.location.href = current_url;
+		}
 
-        function changeAlphabet() {
-            var langSelect = document.getElementById("languageSelector").value;
-            for (var i = 0; i < l.length; i++) {
-                if (l[i].language == langSelect) {
-                    displayNewAlphabet(l[i].alphabet, langSelect);
-                    return;
-                }
-            }
-        }
+		function changeAlphabet() {
+			var langSelect = document.getElementById("languageSelector").value;
+			for (var i = 0; i < l.length; i++) {
+				if (l[i].language == langSelect) {
+					displayNewAlphabet(l[i].alphabet, langSelect);
+					return;
+				}
+			}
+		}
 
-        function displayNewAlphabet (alphabet, lang) {
-            var newDivAlphabet = "";
+		function displayNewAlphabet (alphabet, lang) {
+			var newDivAlphabet = "";
 
-            for (var i = 0; i < alphabet.length; i++) {
-                newDivAlphabet += "<a href=\"letter\/" + lang + "#" + alphabet[i] + "\">" + alphabet[i] + "<\/a> ";
-            }
+			for (var i = 0; i < alphabet.length; i++) {
+				newDivAlphabet += "<a href=\"letter\/" + lang + "#" + alphabet[i] + "\">" + alphabet[i] + "<\/a> ";
+			}
 
-            document.getElementById("divAlphabet").innerHTML = newDivAlphabet;
-        }
+			document.getElementById("divAlphabet").innerHTML = newDivAlphabet;
+		}
 
-        window.onload = changeAlphabet;
-        {% endblock %}
-        </script>
-    </head>
-    <body >
-        {% block content %}
-            <!--Área de pesquisa-->
-            <input type="text" id="search-text" placeholder="Digite uma palavra">
-            <button onclick="redirect()">Buscar</button>
-            
-            <!--Linguagens e alfabetos-->
-            <select id="languageSelector" onchange="changeAlphabet()">
-                    {% for lang in languages.all %}
-                            <option>{{lang.language}}</option>
-                    {% endfor%}
-            </select>
+		window.onload = changeAlphabet;
+		{% endblock %}
+	</script>
+</head>
+<body >
+	{% block content %}
+	<div class="w3-container w3-padding-jumbo w3-padding-64">
+		<!-- Logo -->
+		<div class="w3-padding-top">
+			{% load staticfiles %}
+			<img src="{% static 'dictionary/images/logo.jpg' %}" class="w3-border w3-border-black w3-round-xxlarge">
+		</div>
 
-            <div id="divAlphabet">
-            </div>
-        {% endblock %}
-    </body>
+		<!--Área de pesquisa-->
+		<div class="w3-row-padding w3-padding-top">
+			<div class="w3-col m9 l9"><input class="w3-input w3-border w3-round" type="text" id="search-text" placeholder="Digite uma palavra"></div>
+			<div class="w3-col m3 l3"><button class="w3-btn-block w3-green w3-round-large" id="searchButton" onclick="redirect()">Buscar</button></div>
+		</div>
+	</div>
+
+	<!--Linguagens e alfabetos-->
+	<select id="languageSelector" onchange="changeAlphabet()">
+		{% for lang in languages.all %}
+		<option>{{lang.language}}</option>
+		{% endfor%}
+	</select>
+
+	<div id="divAlphabet"></div>
+	{% endblock %}
+</body>
 </html>
 
