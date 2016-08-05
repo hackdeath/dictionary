@@ -7,7 +7,7 @@ from  django.contrib.auth        import authenticate, login as auth_login, logou
 from  django.contrib.auth.models import User
 from  django.contrib.auth.decorators import login_required
 
-def detailWord(request, word=''):
+def detail_word(request, word=''):
     ids = list(set([obj.id_word for obj in Word.objects.filter(term=word, stage='n')]))
     template = loader.get_template('dictionary/detailWord.html')
     result = Word.objects.filter(id_word__in=ids, stage='n')
@@ -50,7 +50,7 @@ def logout(request):
     auth_logout(request)
     return HttpResponseRedirect('/dictionary/')
 
-def submitWord(request, id_word):
+def submit_word(request, id_word):
     template = loader.get_template('dictionary/submitWord.html')
 
     if request.method == 'GET':
@@ -99,7 +99,7 @@ def letter(request, lang='en-us'):
     return render(request, 'dictionary/letter.html', context)
 
 @login_required
-def stagearea(request):
+def stage_area(request):
     words = Word.objects.filter(stage='y')
     context = { 'words': words, }
     template = loader.get_template('dictionary/stagearea.html')
@@ -133,7 +133,7 @@ def refuse(request, id, redirect):
     return HttpResponseRedirect(topage)
 
 @login_required
-def deleteWord(id):
+def delete_word(id):
     word = Word.objects.get(pk=id)
 
     word.delete()

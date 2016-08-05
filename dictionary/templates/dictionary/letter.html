@@ -31,7 +31,7 @@
                 {% if forloop.first %}
                 <h2 id="letter-{{ word | slice:":1" }}">{{ word | slice:":1" }}</h2>
                 {% endif %}
-                <li><a href="{% url 'dictionary:detailWord' word %}">{{ word }}</a></li>
+                <li><a href="{% url 'dictionary:detail_word' word %}">{{ word }}</a></li>
             	{% endfor %}
             <div>
             {% endif %}

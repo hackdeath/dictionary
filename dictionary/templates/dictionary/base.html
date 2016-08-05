@@ -30,14 +30,14 @@
             <li><a class="w3-teal" href="{% url 'dictionary:index' %}">Dictecnic</a></li>
             <li><a href="{% url 'dictionary:index' %}">Index</a></li>
             <li><a href="{% url 'dictionary:letter' 'en-us' %}">Alphabet</a></li>
-            <li><a href="{% url 'dictionary:submitWord' 0 %}">Help us</a></li>
+            <li><a href="{% url 'dictionary:submit_word' 0 %}">Help us</a></li>
             {% if user.is_anonymous %}
             <li class='w3-right'><a href="{% url 'dictionary:login_page' %}">Login</a></li>
             {% else %}
             <li class="w3-right w3-dropdown-click">
                 <a onclick="dropUserOptions()">{{user}}</a>
                 <div id="userNavDrop" class="w3-dropdown-content w3-white w3-card-4 w3-animate-zoom dropdown">
-                    <a class="w3-padding-16" href="{% url 'dictionary:stagearea' %}">Stage area</a>
+                    <a class="w3-padding-16" href="{% url 'dictionary:stage_area' %}">Stage area</a>
                     <a class="w3-padding-16" href="{% url 'dictionary:logout' %}">Logout</a>
                 </div>
             </li>

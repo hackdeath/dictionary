@@ -59,7 +59,7 @@ function update(term, language, meaning) {
                     <a href="{% url 'dictionary:refuse' word.id word.language %}">Delete</a>
                     {% endif %}
                     {% if forloop.last %}
-                    <a href="{% url 'dictionary:submitWord' word.id_word %}">Submit a enhacement</a>
+                    <a href="{% url 'dictionary:submit_word' word.id_word %}">Submit a enhacement</a>
                     {% endif %}
                 {% endfor %}
             </ul>
