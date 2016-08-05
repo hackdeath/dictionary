@@ -7,7 +7,7 @@ from  django.contrib.auth        import authenticate, login as auth_login, logou
 from  django.contrib.auth.models import User
 from  django.contrib.auth.decorators import login_required
 
-def detailWord(request, word):
+def detailWord(request, word=''):
     ids = list(set([obj.id_word for obj in Word.objects.filter(term=word, stage='n')]))
     template = loader.get_template('dictionary/detailWord.html')
     result = Word.objects.filter(id_word__in=ids, stage='n')
@@ -80,7 +80,7 @@ def index(request):
     context = {'languages' : languages,}
     return render(request, 'dictionary/index.html', context)
 
-def letter(request, lang):
+def letter(request, lang='en-us'):
     word_list = Word.objects.filter(language=lang, stage='n').order_by('term')
     alphabet_list = Language.objects.get(language=lang)
     language_list = Language.objects.values('language')
@@ -120,6 +120,7 @@ def accept(request, id):
 
     return HttpResponseRedirect('/dictionary/stage')
 
+# alterar para reconhecer a página anterior sem precisar dessa informação através da url
 @login_required
 def refuse(request, id, redirect):
     if redirect == 'stage':

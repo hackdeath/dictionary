@@ -23,8 +23,8 @@
 <ul>
     <div>
         <li>({{ word.language }}) {{ word.term }}: {{ word.definition }}</li>
-        <a href="/dictionary/accept/{{ word.id }}/">Accept</a>
-        <a href="/dictionary/refuse/{{ word.id }}/stage/">Refuse</a>
+        <a href="{% url 'dictionary:accept' word.id %}">Accept</a>
+        <a href="{% url 'dictionary:refuse' word.id 'stage' %}">Refuse</a>
     </div>
 </ul>
 {% endfor %}

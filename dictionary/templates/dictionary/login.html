@@ -3,7 +3,7 @@
 {% block title %}Dictionary - Login{% endblock %}
 
 {% block content %}
-<form id="login_form" method="post" action="/dictionary/login/"">
+<form id="login_form" method="post" action="{% url 'dictionary:login' %}">
     {% csrf_token %}
     Username: <input type="text" name="username" value="" size="50" />
     <br />

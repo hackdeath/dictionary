@@ -6,7 +6,7 @@
 {% block javascript %}
 	function redirect(){
 			languageSelected = document.getElementById('languageSelected').value;
-			window.location.href = "/dictionary/letter/" + languageSelected;
+                        window.location.href = "{% url 'dictionary:letter' %}" + languageSelected;
 		}
 {% endblock %}
 </script>
@@ -31,7 +31,7 @@
                 {% if forloop.first %}
                 <h2 id="letter-{{ word | slice:":1" }}">{{ word | slice:":1" }}</h2>
                 {% endif %}
-                <li><a href="/dictionary/word/{{ word }}/">{{ word }}</a></li>
+                <li><a href="{% url 'dictionary:detailWord' word %}">{{ word }}</a></li>
             	{% endfor %}
             <div>
             {% endif %}
