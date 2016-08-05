@@ -1,10 +1,11 @@
-from .forms                      import WordForm
-from .models                     import Word, Language
-from  django.http                import HttpResponse, HttpResponseRedirect
-from  django.template            import loader
-from  django.shortcuts           import render
-from  django.contrib.auth        import authenticate, login as auth_login, logout as auth_logout
-from  django.contrib.auth.models import User
+from .forms                          import WordForm
+from .models                         import Word, Language
+from  django.http                    import HttpResponse, HttpResponseRedirect
+from  django.template                import loader
+from  django.core.mail               import EmailMessage
+from  django.shortcuts               import render
+from  django.contrib.auth            import authenticate, login as auth_login, logout as auth_logout
+from  django.contrib.auth.models     import User
 from  django.contrib.auth.decorators import login_required
 
 def detail_word(request, word=''):
@@ -27,6 +28,22 @@ def login_page(request):
 
     template = loader.get_template('dictionary/login.html')
     context = { }
+
+    return HttpResponse(template.render(context, request))
+
+def contact(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        subject = request.POST['subject']
+        message = request.POST['message']
+
+        email = EmailMessage(subject, "Email from: {0}\nMessage: {1}".format(email, message), to=['dictionarymail@gmail.com'])
+        email.send()
+
+        return HttpResponseRedirect('/dictionary/')
+        
+    context = { }
+    template = loader.get_template('dictionary/contact.html')
 
     return HttpResponse(template.render(context, request))
 

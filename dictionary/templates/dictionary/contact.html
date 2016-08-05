@@ -1,0 +1,21 @@
+{% extends 'dictionary/base.html' %}
+
+{% block title %}Dictionary - Contact{% endblock %}
+
+{% block content %}
+
+<form method="post" action="{% url 'dictionary:contact' %}">
+    {% csrf_token %}
+
+    <label for="email">Email: </label>
+    <input type="text" name="email" />
+    <br /> <!-- Substituir por um display:block no futuro -->
+    <label for="subject">Subject: </label>
+    <input type="text" name="subject" />
+    <br /> <!-- Substituir por um display:block no futuro -->
+    <label for="message">Message: </label>
+    <textarea name="message"></textarea>
+    <br /> <!-- Substituir por um display:block no futuro -->
+    <input type="submit" value="Send message &raquo;" />
+</form>
+{% endblock %}

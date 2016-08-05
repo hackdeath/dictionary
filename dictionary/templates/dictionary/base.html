@@ -31,6 +31,7 @@
             <li><a href="{% url 'dictionary:index' %}">Index</a></li>
             <li><a href="{% url 'dictionary:letter' 'en-us' %}">Alphabet</a></li>
             <li><a href="{% url 'dictionary:submit_word' 0 %}">Help us</a></li>
+            <li><a href="{% url 'dictionary:contact' %}">Contact</a></li>
             {% if user.is_anonymous %}
             <li class='w3-right'><a href="{% url 'dictionary:login_page' %}">Login</a></li>
             {% else %}
