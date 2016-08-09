@@ -37,7 +37,7 @@ def contact(request):
         subject = request.POST['subject']
         message = request.POST['message']
 
-        email = EmailMessage(subject, "Email from: {0}\nMessage: {1}".format(email, message), to=['dictionarymail@gmail.com'])
+        email = EmailMessage("Contact from site", "Subject: {2}\nEmail from: {0}\n\nMessage: {1}".format(email, message, subject), to=['dictionarytechnical@gmail.com'])
         email.send()
 
         return HttpResponseRedirect('/dictionary/')
